@@ -36,10 +36,13 @@ class DynamicProgramming
   end
 
   def frog_cache_builder(n)
-    frog_cache = {1 => [1], 2 => [[1,1],[2]], 3 => [[1,1,1],[1,2],[2,1],[3]]}
+    frog_cache = {1 => [[1]], 2 => [[1,1],[2]], 3 => [[1,1,1],[1,2],[2,1],[3]]}
     (4...n).each do |i|
+      hops = frog_cache[i-3] + frog_cache[i-2] + frog_cache[i-1]
+      hops.each do |arr|
+        arr << i-arr.inject(:+)
+      end 
       byebug
-      hops = frog_cache[i-1] + frog_cache[i-2] + frog_cache[i-3]
       frog_cache[i] = hops
     end 
     frog_cache
