@@ -5,6 +5,7 @@ class DynamicProgramming
     @cache = { 1=>1, 2=>2 }
     @frog_cache = { 0 => [[]], 1=> [[1]], 2=>[[1,1],[2]],3=>[[1,1,1],[1,2],[2,1],[3]]}
     @knapsack_cache = {}
+    @super_frog_cache = {[1, 1] => [[1]], [2, 1] => [[1, 1]], [2, 2] => [[1,1], [2]]}
     @maze_cache = []
     @maze_pos = []
   end
@@ -70,6 +71,7 @@ class DynamicProgramming
   end
 
   def super_frog_hops(n, k)
+    return @super_frog_cache[[n,k]] if @super_frog_cache[[n,k]]
     return [1]*n if k == 1 #only one way to do it if we can only go up one stair at a time 
     #n is num stairs 
     #k is max stairs (number of stairs the frog can jump)
